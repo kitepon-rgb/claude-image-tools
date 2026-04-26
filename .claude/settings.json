@@ -1,0 +1,98 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(claude mcp *)",
+      "Bash(npm --version)",
+      "Bash(git --version)",
+      "PowerShell($env:OPENAI_API_KEY.Length; $env:OPENAI_API_KEY.Substring\\(0,10\\))",
+      "PowerShell($user = [Environment]::GetEnvironmentVariable\\(\"OPENAI_API_KEY\", \"User\"\\); $machine = [Environment]::GetEnvironmentVariable\\(\"OPENAI_API_KEY\", \"Machine\"\\); $process = [Environment]::GetEnvironmentVariable\\(\"OPENAI_API_KEY\", \"Process\"\\); \"User scope length: $\\($user.Length\\)\"; \"Machine scope length: $\\($machine.Length\\)\"; \"Process scope length: $\\($process.Length\\)\"; if \\($user\\) { \"User scope prefix: $\\($user.Substring\\(0,10\\)\\)\" })",
+      "PowerShell($key = [Environment]::GetEnvironmentVariable\\(\"OPENAI_API_KEY\", \"User\"\\); claude mcp add openai-image -s user -e OPENAI_API_KEY=$key -- C:/Users/kite_/.local/bin/openai-gen-image-mcp.exe)",
+      "Bash(throughline save-inflight *)",
+      "mcp__openai-image__generate_image",
+      "mcp__excalidraw__clear_canvas",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://127.0.0.1:3000/)",
+      "mcp__excalidraw__create_from_mermaid",
+      "Bash(start http://127.0.0.1:3000/)",
+      "mcp__excalidraw__describe_scene",
+      "Bash(curl -s -o - -w \"\\\\nHTTP: %{http_code}\\\\n\" --max-time 5 http://127.0.0.1:3000/)",
+      "mcp__excalidraw__batch_create_elements",
+      "mcp__excalidraw__export_to_image",
+      "Bash(claude-mermaid --help)",
+      "Bash(where mmdc *)",
+      "Bash(npm list *)",
+      "Bash(python -c \"import PIL; print\\('Pillow', PIL.__version__\\)\")",
+      "Bash(python \"C:/Users/kite_/Documents/Program/claude-image-tools/.tmp_canvas_caveat.py\")",
+      "mcp__mermaid__mermaid_preview",
+      "Bash(where npx *)",
+      "Bash(where node *)",
+      "Bash(where claude-mermaid *)",
+      "mcp__caveat__caveat_search",
+      "mcp__caveat__caveat_get",
+      "mcp__mermaid__mermaid_save",
+      "mcp__caveat__caveat_record"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\kite_\\Documents\\Program\\claude-image-tools",
+      "C:\\Users\\kite_\\Pictures\\claude-generated",
+      "C:\\Users\\kite_\\AppData\\Roaming\\npm\\node_modules\\claude-mermaid\\build"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\Users\\kite_\\AppData\\Roaming\\npm\\node_modules\\claude-spotter\\bin\\spotter.mjs\" hook session-start",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\Users\\kite_\\AppData\\Roaming\\npm\\node_modules\\claude-spotter\\bin\\spotter.mjs\" hook user-prompt",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\Users\\kite_\\AppData\\Roaming\\npm\\node_modules\\claude-spotter\\bin\\spotter.mjs\" hook pre-tool-use",
+            "timeout": 2
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\Users\\kite_\\AppData\\Roaming\\npm\\node_modules\\claude-spotter\\bin\\spotter.mjs\" hook stop",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\Users\\kite_\\AppData\\Roaming\\npm\\node_modules\\claude-spotter\\bin\\spotter.mjs\" hook session-end",
+            "timeout": 3
+          }
+        ]
+      }
+    ]
+  }
+}
