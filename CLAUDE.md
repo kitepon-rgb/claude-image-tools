@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 | 要素 | 実態 | 起動 |
 |------|------|------|
-| `openai-image` MCP | `kazyam53/openai_gen_image_mcp`、Python 製。実体 `C:\Users\kite_\.local\bin\openai-gen-image-mcp.exe` | `~/.claude.json` の `mcpServers.openai-image.env.OPENAI_API_KEY` に**平文で**埋め込まれている |
+| `openai-image` MCP | `kazyam53/openai_gen_image_mcp`、Python 製。実体 `C:\Users\kite_\.local\bin\openai-gen-image-mcp.exe` | API キーは Claude Code 設定（`~/.claude.json` の `mcpServers.openai-image.env.OPENAI_API_KEY`）経由で渡す |
 | `excalidraw` MCP | `mcp_excalidraw/dist/index.js`（入れ子のローカルクローン、`.gitignore` 済み） | MCP 本体は Claude Code 起動時に自動起動。**描画用の HTTP サーバは別途起動が必要**（後述） |
 | `claude-mermaid` | npm global、MCP サーバ専用。CLI 単体では描画不可 | MCP として登録するには `claude mcp add --scope user mermaid claude-mermaid` |
 | Anthropic Skills | `example-skills@anthropic-agent-skills` プラグイン経由で一括導入。`canvas-design` / `algorithmic-art` / `slack-gif-creator` ほか | `Skill` ツールで起動 |
@@ -70,7 +70,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **ChatGPT Plus と従量課金は完全に別の財布**。Plus に入っていても画像生成 API は使えない。
 - `gpt-image-2` は **OpenAI 組織の本人確認が必須**。未確認だと `Your organization must be verified to use the model 'gpt-image-2'` で 403。確認は https://platform.openai.com/settings/organization/general、反映に最大 15 分。
 - 残高ゼロで叩くと `billing_hard_limit_reached` で 400。https://platform.openai.com/settings/organization/billing/overview を最初に確認。
-- API キーが MCP 設定に平文で入っている件は**ユーザー合意済み**（Windows ユーザー環境変数経由が起動済みプロセスに伝播しないため）。改善余地として記録だけ残してある。
+- API キーの保管場所はユーザー合意済み（Windows ユーザー環境変数の伝播タイミング問題があり、Claude Code 設定経由が現状の妥協点）。将来の改善余地として記録だけ残してある。
 
 ## 慣習
 

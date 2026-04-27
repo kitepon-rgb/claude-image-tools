@@ -25,7 +25,7 @@ Claude Code から画像生成・処理を呼ぶための MCP / Skill 一式の�
 このフォルダで Claude Code を起動し、最初に以下を投げる:
 
 ```
-このフォルダの plan を実行して: C:\Users\kite_\.claude\plans\gpt-image-2-0-woolly-scott.md
+このフォルダの plan を実行して: C:\Users\<your-username>\.claude\plans\gpt-image-2-0-woolly-scott.md
 ```
 
 セッションが Step 1 以降を順に走らせる。
@@ -36,7 +36,7 @@ Claude Code から画像生成・処理を呼ぶための MCP / Skill 一式の�
 
 ## 出力先
 
-- 生成画像: `C:\Users\kite_\Pictures\claude-generated\`
+- 生成画像: `C:\Users\<your-username>\Pictures\claude-generated\`
 
 ## インストール後の検証（再起動後セッションで実行）
 
@@ -55,11 +55,11 @@ claude mcp list
 ### 2. GPT Image 2.0 で英文画像
 
 新セッションで:
-> openai-image MCP で 1024x1024 の画像を生成して。プロンプトは "a small cute cat sitting on a wooden table, soft lighting"。output_path は `C:/Users/kite_/Pictures/claude-generated/test-cat.png`
+> openai-image MCP で 1024x1024 の画像を生成して。プロンプトは "a small cute cat sitting on a wooden table, soft lighting"。output_path は `C:/Users/<your-username>/Pictures/claude-generated/test-cat.png`
 
 ### 3. 日本語テキスト埋め込み（GPT Image 2.0 の主要価値）
 
-> openai-image MCP で 1200x630 の画像を作って。中央に大きく "Caveat" の文字、下に小さく "罠を記録する OSS" の日本語、背景は深い青のグラデーション。output_path は `C:/Users/kite_/Pictures/claude-generated/test-og-banner.png`
+> openai-image MCP で 1200x630 の画像を作って。中央に大きく "Caveat" の文字、下に小さく "罠を記録する OSS" の日本語、背景は深い青のグラデーション。output_path は `C:/Users/<your-username>/Pictures/claude-generated/test-og-banner.png`
 
 文字が崩れずに描画されることを確認。
 
@@ -80,7 +80,7 @@ claude mcp list
 
 | 項目 | 実態 |
 |------|------|
-| openai-image MCP | `kazyam53/openai_gen_image_mcp` を `uv tool install` 経由で導入。実体は `C:\Users\kite_\.local\bin\openai-gen-image-mcp.exe`。Python 製、`gpt-image-2` がデフォルト |
+| openai-image MCP | `kazyam53/openai_gen_image_mcp` を `uv tool install` 経由で導入。実体は `C:\Users\<your-username>\.local\bin\openai-gen-image-mcp.exe`。Python 製、`gpt-image-2` がデフォルト |
 | excalidraw MCP | `yctimlin/mcp_excalidraw` をローカル clone & build。実体は `mcp_excalidraw/dist/index.js` |
 | claude-mermaid | npm global 1.6.2 |
 | Anthropic Skills | `example-skills@anthropic-agent-skills` 一括インストール（canvas-design / algorithmic-art / slack-gif-creator / brand-guidelines / frontend-design / mcp-builder / theme-factory ほか同梱） |
