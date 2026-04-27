@@ -44,26 +44,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | 5 | 同 `TOOL_DEFINITIONS` 内 `mermaid_save` の `description` | USE WHEN / PRECONDITION 明示 | 同上 |
 | 6 | `C:\Users\kite_\AppData\Roaming\uv\tools\openai-gen-image-mcp\Lib\site-packages\src\server.py` の `generate_image` docstring | Spotter フレンドリ化（USE WHEN / DO NOT USE WHEN / PRECONDITIONS / OUTPUT） | `uv tool upgrade openai-gen-image-mcp` または再インストール |
 | 7 | 同ファイルの `edit_image` docstring | 同上 | 同上 |
-| 8 | `C:\Users\kite_\Documents\Program\claude-image-tools\.spotter\tool-db.json` に手書きで追加した 4 エントリ（`mcp__mermaid__mermaid_*`、`mcp__openai-image__*`） | Spotter の自動収集が両 MCP で失敗するため手で投入 | `spotter db rebuild` で全消去（`spotter db refresh` は安全） |
 
 ### 再適用が必要な兆候
 
 - `mermaid_preview` で `Error rendering Mermaid diagram: spawn npx ENOENT` が出たら → #1〜#3 が剥がれている
 - ツール説明から「USE WHEN」「DO NOT USE WHEN」のセクションが消えていたら → #4〜#7 が剥がれている
-- Spotter が `openai-image` / `mermaid` のツールを推薦しなくなったら → #8 が剥がれている
 
 ### 罠の正体
 
 `spawn`/`execFile` 系の問題（#1〜#3）は `caveat` に記録済み。`caveat_search "windows npx spawn"` で `windows-claude-mermaid-mcp-fails-with-spawn-npx-enoent-...` がヒットする。根本治療は上流（`claude-mermaid` 作者）への PR/Issue。
 
-### Spotter 側の既知問題（参考）
+### Spotter 側の既知問題（解決済み・参考）
 
-`spotter db refresh` 実行時、以下の理由で自動収集に失敗する:
+過去、`spotter db refresh` / `rebuild` 実行時に `mermaid` / `openai-image` の自動収集が失敗していた:
 
-- `mermaid`: Spotter 自身が `claude-mermaid`（`.cmd` ラッパー）を素の `spawn` で起動しようとして ENOENT。Spotter にも同じ Windows バグがある
-- `openai-image`: Spotter が MCP を起動するときに Claude Code 設定の env (`OPENAI_API_KEY`) を引き継がず、起動直後に失敗する
+- `mermaid`: Spotter 自身が `claude-mermaid`（Windows の `.cmd` ラッパー）を素の `spawn` で起動して ENOENT
+- `openai-image`: Spotter が MCP を起動するとき Claude Code 設定の env（`OPENAI_API_KEY`）を引き継がず起動直後に失敗
 
-ゆえに #8 は手書きで保持する必要がある。
+→ **claude-spotter 1.2.2 で両方解決**。`spotter db rebuild` で 4 ツール（`mcp__mermaid__mermaid_preview` / `mcp__mermaid__mermaid_save` / `mcp__openai-image__generate_image` / `mcp__openai-image__edit_image`）が自動収集されるので、tool-db.json への手書き投入は不要。1.2.2 未満に戻すと再発する可能性あり。
 
 
 
