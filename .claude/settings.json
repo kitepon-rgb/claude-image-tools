@@ -30,7 +30,16 @@
       "mcp__caveat__caveat_search",
       "mcp__caveat__caveat_get",
       "mcp__mermaid__mermaid_save",
-      "mcp__caveat__caveat_record"
+      "mcp__caveat__caveat_record",
+      "Bash(node -e \"const j = JSON.parse\\(require\\('fs'\\).readFileSync\\('c:/Users/kite_/.claude.json','utf8'\\)\\); const m = j.mcpServers || {}; console.log\\('Top-level mcpServers:', Object.keys\\(m\\)\\); for \\(const k of Object.keys\\(m\\)\\) { console.log\\(' -', k, '->', JSON.stringify\\({command: m[k].command, args: m[k].args, hasEnv: !!m[k].env}\\)\\)}\")",
+      "WebFetch(domain:docs.claude.com)",
+      "Bash(node -e \"const j=JSON.parse\\(require\\('fs'\\).readFileSync\\('c:/Users/kite_/.claude.json','utf8'\\)\\); console.log\\('top-level mcpServers keys:', Object.keys\\(j.mcpServers||{}\\)\\); const projects=j.projects||{}; console.log\\('projects with mcpServers:'\\); for \\(const [path, cfg] of Object.entries\\(projects\\)\\) { if \\(cfg.mcpServers && Object.keys\\(cfg.mcpServers\\).length\\) console.log\\(' ', path, '->', Object.keys\\(cfg.mcpServers\\)\\); }\")",
+      "Bash(spotter --version)",
+      "Bash(spotter db *)",
+      "Bash(npm root *)",
+      "Bash(ls -la \"$\\(npm root -g\\)/spotter-mcp\")",
+      "Bash(npm ls *)",
+      "Bash(rtk git *)"
     ],
     "additionalDirectories": [
       "C:\\Users\\kite_\\Documents\\Program\\claude-image-tools",
