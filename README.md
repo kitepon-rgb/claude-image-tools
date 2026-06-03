@@ -8,49 +8,50 @@
 [![Platform: Windows](https://img.shields.io/badge/platform-Windows-0078D4.svg)](#quick-start-windows)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-MCP%20%26%20Skills-7C3AED.svg)](https://claude.com/claude-code)
 
-> Claude Code から呼べる画像生成ツール（MCP / Skill）を **Windows で一気に揃える** ための運用ハブ。OG バナー・ダイアグラム・ポスター・GIF を「Claude にお願いするだけ」で出せる状態に整える。
+**English** · [日本語](README.ja.md)
 
-🌐 **English**: [README.en.md](README.en.md)
+> **Image generation in Claude Code, all in one place — just ask.**
+> An operations hub that wires up image-generation MCPs and Skills for **Claude Code on Windows**, so OG banners, diagrams, posters, and GIFs become *"just ask Claude"* deliverables.
 
-## 30 秒で何が手に入るか
+## What you get in 30 seconds
 
-Claude Code に頼める内容と、裏で動くツール:
+What you can ask Claude Code, and which tool runs underneath:
 
-| 言ったこと | 動くツール | 出てくるもの |
+| Ask | Tool | Output |
 |---|---|---|
-| 「OG バナー作って、中央に "Caveat" の日本語タイトル」 | `openai-image` (gpt-image-2) | 1024×1024 〜 1536×1024 PNG（日本語の文字描画が崩れない） |
-| 「3 ノードのアーキ図、手書き風で」 | `excalidraw` MCP | 編集可能な excalidraw シーン + PNG export |
-| 「フローチャート: A → B → C」 | `claude-mermaid` MCP | Mermaid 図のライブプレビュー + PNG/SVG |
-| 「Caveat 用ポスター、レイアウト凝って」 | Anthropic Skill `canvas-design` | 印刷品質 PNG/PDF |
-| 「Slack 用に 3 秒の祝いアニメ GIF」 | Anthropic Skill `slack-gif-creator` | 100KB 以下の最適化済み GIF |
-| 「コード生成アート、p5.js で」 | Anthropic Skill `algorithmic-art` | パラメタ可変のジェネレ作品 |
+| "Make an OG banner with a Japanese title 'Caveat' in the center" | `openai-image` (gpt-image-2) | 1024×1024 to 1536×1024 PNG (text rendering, especially CJK, holds up) |
+| "Sketch a 3-node architecture diagram, hand-drawn style" | `excalidraw` MCP | Editable excalidraw scene + PNG export |
+| "Flowchart: A → B → C" | `claude-mermaid` MCP | Live Mermaid preview + PNG/SVG |
+| "Make a poster for Caveat with proper layout" | Anthropic Skill `canvas-design` | Print-quality PNG/PDF |
+| "A 3-second celebration GIF for Slack" | Anthropic Skill `slack-gif-creator` | Optimized GIF under 100 KB |
+| "Generative art in p5.js" | Anthropic Skill `algorithmic-art` | Parameter-tunable generative piece |
 
-## 構成
+## Architecture
 
 ```mermaid
 flowchart LR
     user([User]) --> cc[Claude Code]
-    cc -->|"テキスト→画像<br/>(日本語タイポ強)"| openai[openai-image MCP<br/>gpt-image-2]
-    cc -->|"手書き風ダイアグラム"| excal[excalidraw MCP]
-    cc -->|"Mermaid 図"| mermaid[claude-mermaid MCP]
-    cc -->|"印刷品質 / アート / GIF"| skills[Anthropic Skills<br/>canvas-design / algorithmic-art<br/>slack-gif-creator]
+    cc -->|"Text → image<br/>(strong CJK typography)"| openai[openai-image MCP<br/>gpt-image-2]
+    cc -->|"Hand-drawn diagrams"| excal[excalidraw MCP]
+    cc -->|"Mermaid diagrams"| mermaid[claude-mermaid MCP]
+    cc -->|"Print-quality / art / GIF"| skills[Anthropic Skills<br/>canvas-design / algorithmic-art<br/>slack-gif-creator]
     openai --> out[(Pictures/claude-generated/)]
     excal --> out
     mermaid --> out
     skills --> out
 ```
 
-## 似た選択肢との違い
+## How this differs from nearby choices
 
-| アプローチ | 良い点 | このリポジトリの違い |
+| Approach | Strengths | What this repo adds |
 |---|---|---|
-| 単独 MCP（`openai-image` だけ等）を入れる | シンプル | 用途別に最適なツールを揃え、**Claude が場面ごとに選べる** |
-| ChatGPT / Midjourney の Web UI | 即使える | エディタを離れずに **生成 → 配置 → コミット** が一本で繋がる |
-| `gpt-image` を直接 API で叩く | 自由 | 構成図 / 手書き風 / GIF / 印刷レイアウト等、**画像種別ごとに別ツール** を呼び分けてくれる |
+| Install a single MCP (e.g., only `openai-image`) | Simple | Bundles the right tool per use case so **Claude can pick** |
+| ChatGPT / Midjourney web UI | Works out of the box | Stays in the editor: **generate → place → commit** in one flow |
+| Hit `gpt-image` directly via API | Maximum flexibility | Routes diagrams / hand-drawn / GIFs / print-grade layout to **purpose-built tools** |
 
 ## Quick start (Windows)
 
-> **前提**: Claude Code、Node.js、Python (uv)、`OPENAI_API_KEY` を Windows ユーザー環境変数に登録済み。
+> **Prerequisites**: Claude Code, Node.js, Python (uv), and `OPENAI_API_KEY` set as a Windows user environment variable.
 
 ```powershell
 # 1. openai-image MCP (gpt-image-2)
@@ -59,76 +60,88 @@ claude mcp add --scope user openai-image `
   -e OPENAI_API_KEY=$env:OPENAI_API_KEY `
   -- C:/Users/<your-username>/.local/bin/openai-gen-image-mcp.exe
 
-# 2. claude-mermaid (Mermaid 図)
+# 2. claude-mermaid (Mermaid diagrams)
 npm install -g claude-mermaid
 claude mcp add --scope user mermaid -- claude-mermaid
 
-# 3. excalidraw MCP (手書き風ダイアグラム)
+# 3. excalidraw MCP (hand-drawn diagrams)
 git clone https://github.com/yctimlin/mcp_excalidraw
 cd mcp_excalidraw
 npm install; npm run build
 claude mcp add --scope user excalidraw -- node "$PWD/dist/index.js"
-# 利用時は別プロセスで起動: npm run canvas (port 3000)
+# When using it, run the canvas server in a separate process: npm run canvas (port 3000)
 
-# 4. Anthropic Skills 一括導入
+# 4. Bulk-install Anthropic Skills
 claude plugin install example-skills@anthropic-agent-skills
 ```
 
-接続確認:
+> Replace `<your-username>` with your Windows account name (the value of `%USERNAME%`).
+
+Verify connection:
 
 ```bash
 claude mcp list
-# excalidraw / openai-image / mermaid が ✓ Connected で並べば成功
+# Success when excalidraw / openai-image / mermaid all show ✓ Connected
 ```
 
-## 動作確認プロンプト
+## Smoke-test prompts
 
-新しい Claude Code セッションで投げる:
-
-```
-openai-image MCP で 1024x1024 の画像を生成して。
-プロンプトは「a small cute cat sitting on a wooden table, soft lighting」。
-output_path は C:/Users/<your-username>/Pictures/claude-generated/test-cat.png
-```
+Try these in a fresh Claude Code session. Replace `<your-username>` with your
+Windows account name, or point `output_path` at any folder you can write to
+(e.g. `~/Pictures/claude-generated/`):
 
 ```
-1200x630 の画像を作って。中央に大きく "Caveat" の文字、
-下に小さく "罠を記録する OSS" の日本語、背景は深い青のグラデーション。
-output_path は C:/Users/<your-username>/Pictures/claude-generated/test-og.png
+Use the openai-image MCP to generate a 1024x1024 image.
+Prompt: "a small cute cat sitting on a wooden table, soft lighting".
+output_path: C:/Users/<your-username>/Pictures/claude-generated/test-cat.png
 ```
 
-日本語の文字が崩れずに描画されれば成功。
+```
+Generate a 1200x630 image. Center a large "Caveat" title,
+with a small Japanese subtitle "罠を記録する OSS" beneath it,
+on a deep blue gradient background.
+output_path: C:/Users/<your-username>/Pictures/claude-generated/test-og.png
+```
 
-## Windows ならではの罠（要対処）
+If the text — Japanese in particular — renders cleanly, you're set.
 
-このスタックは upstream パッケージを Windows で動かすために、**いくつかの手書きパッチを当てている**。詳細とパッチ箇所は [CLAUDE.md](CLAUDE.md) のチェックリストを参照。代表症状:
+## Windows-specific gotchas (you will hit these)
 
-- `mermaid_preview` で `spawn npx ENOENT` → `claude-mermaid` の `spawn` 系を `cmd.exe /c` 経由に書き換え
-- `openai-image` が起動直後に落ちる → API キーは Claude Code 設定経由で渡す（環境変数の伝播タイミング問題）
-- `excalidraw` の `export_to_image` で path 拒否 → CWD 配下にしか書けない、`EXCALIDRAW_EXPORT_DIR` で許可ベース変更可
+This stack hand-patches a few upstream packages so they run on Windows. See the checklist in [CLAUDE.md](CLAUDE.md) for exact patch points. Common symptoms:
+
+- `mermaid_preview` errors with `spawn npx ENOENT` → `claude-mermaid`'s `spawn` calls are rewritten to go via `cmd.exe /c`
+- `openai-image` dies right after launch → pass the API key through Claude Code config (Windows env-var propagation timing issue)
+- `excalidraw`'s `export_to_image` rejects paths → it only writes under CWD; change the allowed base via `EXCALIDRAW_EXPORT_DIR`
 
 <details>
-<summary>OpenAI 課金まわりのよくある詰まり</summary>
+<summary>Common OpenAI billing snags</summary>
 
-- **ChatGPT Plus と従量課金は別の財布**: Plus に入っていても画像生成 API は使えない
-- `gpt-image-2` は **OpenAI 組織の本人確認が必須**: 未確認だと 403、反映に最大 15 分
-- 残高ゼロは `billing_hard_limit_reached` で 400 → billing コンソールで残高確認
+- **ChatGPT Plus and pay-as-you-go are separate wallets**: a Plus subscription does *not* unlock the image API
+- `gpt-image-2` requires **organization verification**: unverified orgs get a 403; verification takes up to 15 minutes
+- Zero balance returns `billing_hard_limit_reached` (HTTP 400) — check the billing console first
 
 </details>
 
 <details>
-<summary>このリポジトリの設計判断</summary>
+<summary>Design choices for this repo</summary>
 
-- **コードは置かない**: アプリケーションコードはここにない。MCP / Skill の運用ハブとしてのみ機能する
-- **upstream への push back**: 罠の根本治療は各 upstream への PR / Issue（記録は `caveat` MCP に蓄積）
-- **メタ的に dogfood**: この repo の OG バナー自体、`openai-image` MCP で生成している
+- **No application code lives here**: it's purely an operations hub for the MCP / Skill stack
+- **Push fixes upstream**: root-cause fixes for the gotchas go to each upstream as PRs/Issues (notes accumulate via the `caveat` MCP)
+- **Dogfooding**: the OG banner of this repo was generated by `openai-image` itself
 
 </details>
 
-## 出力先
+## Output location
 
-生成画像のデフォルト保存先は `C:\Users\<your-username>\Pictures\claude-generated\`。新しいツールを追加する時もここに揃える。
+Default save path for generated images: `C:\Users\<your-username>\Pictures\claude-generated\`. New tools should follow the same convention.
 
-## ライセンス
+## Contributing
+
+Issues and PRs are welcome. Since the gotchas this hub documents are upstream
+bugs, **upstream fixes are preferred** — open a PR/Issue against the affected
+package (`claude-mermaid`, `mcp_excalidraw`, `openai-gen-image-mcp`) and link it
+here so the workaround can be retired.
+
+## License
 
 [MIT](LICENSE)

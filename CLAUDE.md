@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 | 要素 | 実態 | 起動 |
 |------|------|------|
-| `openai-image` MCP | `kazyam53/openai_gen_image_mcp`、Python 製。実体 `C:\Users\kite_\.local\bin\openai-gen-image-mcp.exe` | API キーは Claude Code 設定（`~/.claude.json` の `mcpServers.openai-image.env.OPENAI_API_KEY`）経由で渡す |
+| `openai-image` MCP | `kazyam53/openai_gen_image_mcp`、Python 製。実体 `C:\Users\<your-username>\.local\bin\openai-gen-image-mcp.exe` | API キーは Claude Code 設定（`~/.claude.json` の `mcpServers.openai-image.env.OPENAI_API_KEY`）経由で渡す |
 | `excalidraw` MCP | `mcp_excalidraw/dist/index.js`（入れ子のローカルクローン、`.gitignore` 済み） | MCP 本体は Claude Code 起動時に自動起動。**描画用の HTTP サーバは別途起動が必要**（後述） |
 | `claude-mermaid` | npm global、MCP サーバ専用。CLI 単体では描画不可 | MCP として登録するには `claude mcp add --scope user mermaid claude-mermaid` |
 | Anthropic Skills | `example-skills@anthropic-agent-skills` プラグイン経由で一括導入。`canvas-design` / `algorithmic-art` / `slack-gif-creator` ほか | `Skill` ツールで起動 |
@@ -37,12 +37,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 | # | ファイル | 目的 | 復元コマンドで消えるトリガー |
 |---|---------|------|------------------------------|
-| 1 | `C:\Users\kite_\AppData\Roaming\npm\node_modules\claude-mermaid\build\handlers.js` 41 行目付近 | `execFileAsync("npx", args)` → `process.platform === "win32"` 分岐で `cmd.exe /c npx` | `npm i -g claude-mermaid` |
+| 1 | `C:\Users\<your-username>\AppData\Roaming\npm\node_modules\claude-mermaid\build\handlers.js` 41 行目付近 | `execFileAsync("npx", args)` → `process.platform === "win32"` 分岐で `cmd.exe /c npx` | `npm i -g claude-mermaid` |
 | 2 | 同ファイル 64 行目付近 | ブラウザ起動 `spawn("start", ...)` → `cmd.exe /c start "" <url>`、`child.on("error", ...)` ハンドラ追加 | 同上 |
-| 3 | `C:\Users\kite_\AppData\Roaming\npm\node_modules\claude-mermaid\build\serve.js` 44 行目付近 | ギャラリー起動を `cmd.exe /c start ""` 経由に | 同上 |
+| 3 | `C:\Users\<your-username>\AppData\Roaming\npm\node_modules\claude-mermaid\build\serve.js` 44 行目付近 | ギャラリー起動を `cmd.exe /c start ""` 経由に | 同上 |
 | 4 | 同 `build/index.js` の `TOOL_DEFINITIONS` 内 `mermaid_preview` の `description` | Spotter フレンドリ化（USE WHEN / DO NOT USE WHEN / 代替ツール明示） | 同上 |
 | 5 | 同 `TOOL_DEFINITIONS` 内 `mermaid_save` の `description` | USE WHEN / PRECONDITION 明示 | 同上 |
-| 6 | `C:\Users\kite_\AppData\Roaming\uv\tools\openai-gen-image-mcp\Lib\site-packages\src\server.py` の `generate_image` docstring | Spotter フレンドリ化（USE WHEN / DO NOT USE WHEN / PRECONDITIONS / OUTPUT） | `uv tool upgrade openai-gen-image-mcp` または再インストール |
+| 6 | `C:\Users\<your-username>\AppData\Roaming\uv\tools\openai-gen-image-mcp\Lib\site-packages\src\server.py` の `generate_image` docstring | Spotter フレンドリ化（USE WHEN / DO NOT USE WHEN / PRECONDITIONS / OUTPUT） | `uv tool upgrade openai-gen-image-mcp` または再インストール |
 | 7 | 同ファイルの `edit_image` docstring | 同上 | 同上 |
 
 ### 再適用が必要な兆候
@@ -74,7 +74,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 慣習
 
-- 生成画像の出力先は `C:\Users\kite_\Pictures\claude-generated\`。新ツール追加時もここに揃える。
+- 生成画像の出力先は `C:\Users\<your-username>\Pictures\claude-generated\`。新ツール追加時もここに揃える。
 - `.env` は git ignored。`.env.example` がテンプレ。
 - `mcp_excalidraw/` 配下は upstream の別リポジトリ。**この配下を編集してはいけない**（差分が pull で消える）。設定変更は親フォルダの `~/.claude.json` 側で行う。
 
